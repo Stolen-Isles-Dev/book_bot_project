@@ -21,15 +21,13 @@ def report(total_count,char_count,file_path):
     print("----------- Word Count -----------")
     print(f"Found {total_count} total words")
     print("-----------Character Count -----------")
-    for c, n in char_count.items():
-        char_list.append({"char": c, "num": n})
-        char_list.sort(key=lambda item: item["num"], reverse=True)
-    for item in char_list:
-         if item['char'].isalpha(): 
-             print(f"{item['char']}: {item['num']}")     
-         else:
-             continue
+     # build once
+    char_list = [{"char": c, "num": n} for c, n in char_count.items() if c.isalpha()]
+    # sort once (count desc, then char asc)
+    char_list.sort(key=lambda item: (-item["num"], item["char"]))
 
-    
+    for item in char_list:
+        print(f"{item['char']}: {item['num']}")
+
     print("============= END ===============")
 
